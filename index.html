@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السبحة الإلكترونية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .counter-display {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .dhikr-text {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-number {
+            font-size: 4em;
+            font-weight: 700;
+            margin: 20px 0;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .count-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .count-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .count-btn:active {
+            transform: translateY(0);
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #f44336, #da190b);
+            color: white;
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .setup-form {
+            display: block;
+        }
+
+        .tasbih-counter {
+            display: none;
+        }
+
+        .completed-message {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .bounce {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .counter-number {
+                font-size: 3em;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕌 السبحة الإلكترونية</h1>
+        
+        <div class="setup-form" id="setupForm">
+            <div class="input-group">
+                <label for="dhikrText">النص أو الذكر:</label>
+                <input type="text" id="dhikrText" placeholder="مثال: سبحان الله" value="سبحان الله">
+            </div>
+            
+            <div class="input-group">
+                <label for="countNumber">العدد:</label>
+                <input type="number" id="countNumber" placeholder="مثال: 33" value="33" min="1">
+            </div>
+            
+            <button class="start-btn" onclick="startTasbih()">ابدأ التسبيح</button>
+        </div>
+        
+        <div class="tasbih-counter" id="tasbihCounter">
+            <div class="counter-display">
+                <div class="dhikr-text" id="displayText">سبحان الله</div>
+                <div class="counter-number" id="counterNumber">33</div>
+            </div>
+            
+            <div class="buttons">
+                <button class="count-btn" id="countBtn" onclick="decrementCounter()">تسبيح</button>
+                <button class="reset-btn" onclick="resetTasbih()">إعادة تعيين</button>
+            </div>
+            
+            <div class="completed-message" id="completedMessage" style="display: none;">
+                🎉 تم إكمال التسبيح بنجاح! 🎉
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCount = 0;
+        let originalCount = 0;
+        let dhikrText = "";
+
+        function startTasbih() {
+            const textInput = document.getElementById('dhikrText');
+            const numberInput = document.getElementById('countNumber');
+            
+            dhikrText = textInput.value.trim();
+            originalCount = parseInt(numberInput.value);
+            
+            if (!dhikrText) {
+                alert('يرجى إدخال النص أو الذكر');
+                return;
+            }
+            
+            if (!originalCount || originalCount <= 0) {
+                alert('يرجى إدخال عدد صحيح أكبر من صفر');
+                return;
+            }
+            
+            currentCount = originalCount;
+            
+            document.getElementById('displayText').textContent = dhikrText;
+            document.getElementById('counterNumber').textContent = currentCount;
+            
+            document.getElementById('setupForm').style.display = 'none';
+            document.getElementById('tasbihCounter').style.display = 'block';
+            document.getElementById('completedMessage').style.display = 'none';
+            
+            // إعادة تفعيل زر التسبيح
+            document.getElementById('countBtn').disabled = false;
+            document.getElementById('countBtn').style.opacity = '1';
+        }
+
+        function decrementCounter() {
+            if (currentCount > 0) {
+                currentCount--;
+                document.getElementById('counterNumber').textContent = currentCount;
+                
+                // إضافة تأثير الارتداد
+                document.getElementById('counterNumber').classList.add('bounce');
+                setTimeout(() => {
+                    document.getElementById('counterNumber').classList.remove('bounce');
+                }, 600);
+                
+                // إذا وصل العداد للصفر
+                if (currentCount === 0) {
+                    document.getElementById('completedMessage').style.display = 'block';
+                    document.getElementById('countBtn').disabled = true;
+                    document.getElementById('countBtn').style.opacity = '0.5';
+                    
+                    // تشغيل صوت تنبيه (اختياري)
+                    // يمكنك إضافة ملف صوتي هنا
+                }
+            }
+        }
+
+        function resetTasbih() {
+            document.getElementById('setupForm').style.display = 'block';
+            document.getElementById('tasbihCounter').style.display = 'none';
+            document.getElementById('completedMessage').style.display = 'none';
+            
+            // إعادة تعيين القيم
+            currentCount = 0;
+            originalCount = 0;
+            dhikrText = "";
+        }
+
+        // السماح بالضغط على Enter لبدء التسبيح
+        document.getElementById('countNumber').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startTasbih();
+            }
+        });
+
+        document.getElementById('dhikrText').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startTasbih();
+            }
+        });
+
+        // السماح بالضغط على مفتاح المسافة للتسبيح
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space' && document.getElementById('tasbihCounter').style.display === 'block') {
+                e.preventDefault();
+                decrementCounter();
+            }
+        });
+    </script>
+</body>
+</html>
